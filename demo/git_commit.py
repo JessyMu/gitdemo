@@ -18,9 +18,9 @@ commit_data = [
 
 # 进入你的Git仓库目录
 # repo_path = "E:/whr/2022.7.5电话亭/代码版本/管理平台/ght-15min-management-backend"
-repo_path = "E:/whr/文档/0切块预算材料/2024小卡片/代码仓库/qingpu-vue"
+repo_path = "/Users/jesse/Project/srdcloud"
 
-for i in range(100):
+for i in range(2):
     readme_path = f"{repo_path}/readme.md"
 
     # 如果readme.md文件存在，追加字符串
@@ -48,4 +48,4 @@ for i in range(100):
     subprocess.run(["git", "-C", repo_path, "push"])
 
     # 等待10秒
-    time.sleep(62)
+    time.sleep(10)

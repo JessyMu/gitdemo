@@ -1,0 +1,89 @@
+docEdit:
+  doc_url: "https://docs.srdcloud.cn/docs/NJkbEl9MyKh0OoqR"
+  user_dir: "./edge_user_data"
+  browser_path: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+  web_page: "https://www.srdcloud.cn/"
+  iterations: 2
+  location_item: "div.ql-editor.notranslate"
+  contents: ["c1", "c2"]
+  save_time: 3000
+  sleep_time: 2
+
+gitCommit:
+  repo_path: "/Users/jesse/Project/srdcloud"
+  iterations: 2
+  contents: ["c1", "c2"]
+  commit_msg: 
+    - ["feat", "新增部分车辆数据获取"]
+    - ["feat", "新增部分告警数据获取"]
+    - ["fix", "修改部分车辆数据获取"]
+    - ["fix", "修改部分告警数据获取"]
+    - ["fix", "完善部分车辆数据获取"]
+    - ["fix", "完善部分告警数据获取"]
+    - ["feat", "新增告警数据接口"]
+    - ["feat", "新增车辆道闸数据接口"]
+  sleep_time: 10
+
+testSample:
+  url: "https://www.srdcloud.cn/api/tsback/casemanager/v1/add-case"
+  data: 
+    productId: "32687"
+    name: "123"
+    category: "function"
+    level: "P1"
+    demandId: "-1"
+    descType: "step"
+    demandName: ""
+    groupId: "127935"
+    status: "draft"
+    description: 
+      preCond: ""
+      steps: ""
+      expects: ""
+      steplist: []
+    annexIds: []
+    testPhase: []
+    externalId: ""
+    tagIds: []
+  headers: 
+    authority: "www.srdcloud.cn"
+    pragma: "no-cache"
+    projectid: "75945"
+    sessionid: "fc74fd8d-639b-4941-878f-d3d97efabe03"
+    userid: "428801"
+    x-dup-id: "1755160340-qazhxmaiy"
+    Cookie: "_pk_id.8.136f=3489c818118ee943.1725241416.; _pk_id.5.136f=1b3e3f31a58e0037.1725241417.; _pk_id.4.136f=0b49a46a7a943210.1725325196.; fp=c94054e345de06e2421e1b1f4942c649; _pk_id.3.136f=923e2f550de8dde0.1734319653.; _pk_ref..136f=%5B%22%22%2C%22%22%2C1747962219%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_id.11.136f=c670d85a08784856.1742785487.; prodtoken=0741a5e8-1024-483c-99b8-fb75011bcaed; produserId=264841; CTWIMAPPDPGSSOCookie=0741a5e8-1024-483c-99b8-fb75011bcaed; CTWIMAPPDPGSSOUser=wanghr3; sidebar_status=closed"
+    content-type: "application/json"
+    
+
+workItem:
+  url: "https://www.srdcloud.cn/api/agilebackend/workitem/batchWorkitems"
+  data: 
+    workitems: 
+    - title: "集成i-Park智联应用场景仓库能力"
+      description: "背景：<br/>- IDC机房用户需要自服务监控大屏平台<br/>- 需要集成现有i-Park智联应用的场景仓库能力<br/><br/>目标：<br/>- 提供机房监控常见场景参考模板<br/>- 实现场景组件的复用功能<br/><br/>功能描述：<br/>1. 对接i-Park智联应用API获取场景数据<br/>2. 建立机房监控场景分类体系<br/>3. 实现场景模板的预览功能<br/>4. 开发场景组件复用机制"
+      project: 75945
+      workItemType: 2
+      status: 1
+      createType: 1
+      priority: 2
+      customFieldValues: {}
+    - title: "构建监控大屏基础框架"
+      description: "背景：<br/>- 需要为IDC机房用户提供自服务监控大屏平台<br/><br/>目标：<br/>- 搭建可扩展的监控大屏基础框架<br/><br/>功能描述：<br/>1. 设计并实现大屏布局系统<br/>2. 开发基础组件库（图表、表格等）<br/>3. 实现响应式布局适配不同屏幕尺寸"
+      project: 75945
+      workItemType: 2
+      status: 1
+      createType: 1
+      priority: 2
+      customFieldValues: {}
+  headers: 
+    Host: "www.srdcloud.cn"
+    pragma: "no-cache"
+    projectId: "75945"
+    sessionid: "1eb23433-b618-4515-ac07-6c809a4465c9"
+    userId: "428801"
+    x-dup-id: "1755162319-llvop94h"
+    # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
+    content-type: "application/json"
+
+pipeline:
