@@ -5,7 +5,7 @@ import os
 import random
 import time
 from playwright.sync_api import sync_playwright
-
+from functools import partial
 
 def postData(config):
     payload = json.dumps(config['data'])
@@ -96,19 +96,85 @@ def doc_edit(config):
             input("Press Enter to start...")
 
             # 开始循环刷编辑次数
-            for i in range(config['iterations']):
+            for i in range(config['docEdit']['iterations']):
                 print(f"第 {i+1} 次编辑")
-                page.goto(config['doc_url'])
+                page.goto(config['docEdit']['doc_url'])
 
-                editor = page.locator(config['location_item'])
+                editor = page.locator(config['docEdit']['location_item'])
                 
                 editor.click()
                 editor.press("Control+End")   # 移动到文末
-                editor.type(config['contents'][i] if len(config['contents'])>1 and config['iterations']==len(config['contents']) else config['contents'][0])     # 输入一个空格
-                page.wait_for_timeout(config['save_time'])  # 等待自动保存
+                editor.type(config['docEdit']['contents'][i] if len(config['docEdit']['contents'])>1 and config['docEdit']['iterations']==len(config['docEdit']['contents']) else config['docEdit']['contents'][0])     # 输入一个空格
+                page.wait_for_timeout(config['docEdit']['save_time'])  # 等待自动保存
                 page.go_back()       # 返回上一页（或关闭标签页）
-                time.sleep(config['sleep_time'])        # 避免被检测为机器人
+                time.sleep(config['docEdit']['sleep_time'])        # 避免被检测为机器人
 
             context.close()
     except Exception:
         print('ERROR from doc edit')
+
+requests_list = []
+import main
+def on_request(request,target_url):
+    global captured_request
+    if request.method == "POST" and target_url in request.url:
+        print("✅ 捕获到目标 POST 请求:")
+        print(f"   URL: {request.url}")
+        print(f"   Method: {request.method}")
+        
+        # 获取 headers
+        headers = request.headers
+        print("📎 Request Headers:")
+        for k, v in headers.items():
+            print(f"  {k}: {v}")
+        
+        # 获取请求体
+        try:
+            post_data = request.post_data
+            if post_data:
+                print("📝 Request Body:")
+                print(post_data.decode('utf-8') if isinstance(post_data, bytes) else post_data)
+        except:
+            pass
+        
+        # 保存
+        captured_request = {
+            "url": request.url,
+            "method": request.method,
+            "headers": headers,
+            "post_data": post_data if 'post_data' in locals() else None
+        }
+        requests_list.append(captured_request)
+def get_post(config):
+    with sync_playwright() as p:
+        # 启动持久化上下文（使用本地用户数据，保留登录状态）
+        context = p.chromium.launch_persistent_context(
+                user_data_dir=config['user_dir'],  # 独立的用户数据目录
+                headless=False,
+                executable_path=config['browser_path'],  # 关键：使用 Edge 浏览器程序
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-sandbox",
+                    "--disable-infobars",
+                    "--disable-extensions",
+                    "--disable-web-security",
+                    "--allow-running-insecure-content",
+                ],
+            )
+
+        page = context.pages[0]
+        page.goto(config['web_page'])  # 替换为你的登录页
+
+        print("📌 请在浏览器中完成登录操作（扫码/输入账号）...")
+        print("监听页面请求中...")
+
+        # 设置监听器
+        handler = partial(on_request, target_url=config['web_page'])
+        context.on("request", handler)
+
+        input("登录成功点击任意键输出请求...")
+
+        # 关闭
+        context.close()
+
+        return requests_list

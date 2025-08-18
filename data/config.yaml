@@ -1,8 +1,5 @@
 docEdit:
   doc_url: "https://docs.srdcloud.cn/docs/NJkbEl9MyKh0OoqR"
-  user_dir: "./edge_user_data"
-  browser_path: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
-  web_page: "https://www.srdcloud.cn/"
   iterations: 2
   location_item: "div.ql-editor.notranslate"
   contents: ["c1", "c2"]
@@ -49,10 +46,10 @@ testSample:
     authority: "www.srdcloud.cn"
     pragma: "no-cache"
     projectid: "75945"
-    sessionid: "fc74fd8d-639b-4941-878f-d3d97efabe03"
+    sessionid: "ff17a06b-b484-496e-aa74-9e8be57f3c08"
     userid: "428801"
-    x-dup-id: "1755160340-qazhxmaiy"
-    Cookie: "_pk_id.8.136f=3489c818118ee943.1725241416.; _pk_id.5.136f=1b3e3f31a58e0037.1725241417.; _pk_id.4.136f=0b49a46a7a943210.1725325196.; fp=c94054e345de06e2421e1b1f4942c649; _pk_id.3.136f=923e2f550de8dde0.1734319653.; _pk_ref..136f=%5B%22%22%2C%22%22%2C1747962219%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_id.11.136f=c670d85a08784856.1742785487.; prodtoken=0741a5e8-1024-483c-99b8-fb75011bcaed; produserId=264841; CTWIMAPPDPGSSOCookie=0741a5e8-1024-483c-99b8-fb75011bcaed; CTWIMAPPDPGSSOUser=wanghr3; sidebar_status=closed"
+    x-dup-id: "1755479417-a16zb4if"
+    # Cookie: "_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ses.9.136f=1; prodtoken=73b34a2a-5bc6-4ade-9383-b5dfb1ea5755; produserId=428801; CTWIMAPPDPGSSOCookie=73b34a2a-5bc6-4ade-9383-b5dfb1ea5755; CTWIMAPPDPGSSOUser=srd18964600668; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755249102%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D"
     content-type: "application/json"
     
 
@@ -85,5 +82,9 @@ workItem:
     x-dup-id: "1755162319-llvop94h"
     # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
     content-type: "application/json"
+
+user_dir: "./edge_user_data"
+browser_path: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+web_page: "https://www.srdcloud.cn/"
 
 pipeline:

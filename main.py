@@ -44,35 +44,60 @@
 
 
 import yaml
+import json
 import argparse
-from util import gitCommit,doc_edit,writeFile,postData,checkStatus
+
+captured_request = None
+
+def main():
+    from util import gitCommit,doc_edit,writeFile,postData,checkStatus,get_post
+
+    parser = argparse.ArgumentParser(description="一个示例程序")
+    parser.add_argument('--config',default='data/config.yaml', help='config file path')
+    parser.add_argument('--mode',default='work', help='auto mode from [git, doc, pipe, sample, work, all]')
+    parser.add_argument('--browser',default='edge',help='edge,chrome,firefox')
+    args = parser.parse_args()
+
+    # 读取 YAML 配置文件
+    with open(args.config, 'r', encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+
+    requests_list = get_post(config)
+    
+    if not requests_list:
+        print(f"\n❌ 未捕获到 POST 请求: {config['web_page']}")
+        print("可能原因：URL 不匹配、未触发请求、网络问题")
+
+    for request in requests_list:
+        sessionid = request['headers']['sessionid']
+        x_dup_id = request['headers']['x-dup-id']
+        user_id = request['headers']['userid']
+        if sessionid != 'undefined' and user_id != 'undefined' and x_dup_id != 'undefined':
+            break
+    post_conf = {'sessionid':sessionid,'x-dup-id':x_dup_id, 'userId':user_id}
+    
+    if args.mode == 'git':
+        gitCommit(config['gitCommit'])
+    elif args.mode == 'doc':
+        doc_edit(config)
+    elif args.mode == 'pipe':
+        pass
+    elif args.mode == 'sample':
+        checkStatus(postData({**config['testSample'],**{'headers':{**config['testSample']['headers'],**post_conf}}}))
+    elif args.mode == 'work':
+        checkStatus(postData({**config['workItem'],**{'headers':{**config['workItem']['headers'],**post_conf}}}))
+    elif args.mode == 'all':
+        print('---文档编辑---')
+        doc_edit(config)
+        print('---Git提交---')
+        gitCommit({**config['gitCommit'],**post_conf})
+        print('---测试样例---')
+        checkStatus(postData({**config['testSample'],**post_conf}))
+        print('---工作项---')
+        checkStatus(postData({**config['workItem'],**post_conf}))
+    else:
+        print('指定模式无法识别')
 
 
-parser = argparse.ArgumentParser(description="一个示例程序")
-parser.add_argument('--config',default='data/config.yaml', help='config file path')
-parser.add_argument('--mode',default='all', help='auto mode')
-args = parser.parse_args()
-
-# 读取 YAML 配置文件
-with open(args.config, 'r', encoding='utf-8') as f:
-    config = yaml.safe_load(f)
-
-if args.mode == 'git':
-    gitCommit(config['gitCommit'])
-elif args.mode == 'doc':
-    doc_edit(config['docEdit'])
-elif args.mode == 'pipe':
-    pass
-elif args.mode == 'sample':
-    checkStatus(postData(config['testSample']))
-elif args.mode == 'work':
-    checkStatus(postData(config['workItem']))
-elif args.mode == 'all':
-    print('---文档编辑---')
-    doc_edit(config['docEdit'])
-    print('---Git提交---')
-    gitCommit(config['gitCommit'])
-    print('---测试样例---')
-    checkStatus(postData(config['testSample']))
-    print('---工作项---')
-    checkStatus(postData(config['workItem']))
+if __name__ == "__main__":
+    main()
