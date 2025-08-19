@@ -7,19 +7,19 @@ import time
 from playwright.sync_api import sync_playwright
 from functools import partial
 
-def postData(config):
-    payload = json.dumps(config['data'])
-    response = requests.request("POST", config['url'], headers=config['headers'], data=payload)
+def postData(url, data, headers):
+    payload = json.dumps(data)
+    response = requests.request("POST", url, headers=headers, data=payload)
     return response
 
 def checkStatus(response):
     if response.status_code == 200:
         try:
             result = response.json()
-            print("响应结果：", result)
+            print("响应成功！结果：", result)
 
         except requests.exceptions.JSONDecodeError:
-            print("响应字符串内容：", response.text)
+            print("响应成功！字符串内容：", response.text)
         return True
     else:
         print("请求失败，状态码：", response.status_code)
@@ -55,14 +55,14 @@ def gitCommit(config):
         except Exception:
             print("ERROR from git commit")
 
-def doc_edit(config):
+def doc_edit(user_dir,browser_path,web_page,config):
     try:
         with sync_playwright() as p:
             
             context = p.chromium.launch_persistent_context(
-                user_data_dir=config['user_dir'],  # 独立的用户数据目录
+                user_data_dir=user_dir,  # 独立的用户数据目录
                 headless=False,
-                executable_path=config['browser_path'],  # 关键：使用 Edge 浏览器程序
+                executable_path=browser_path,  # 关键：使用 Edge 浏览器程序
                 args=[
                     "--disable-blink-features=AutomationControlled",
                     "--no-sandbox",
@@ -92,22 +92,22 @@ def doc_edit(config):
                 });
             """)
 
-            page.goto(config['web_page'])
+            page.goto(web_page)
             input("Press Enter to start...")
 
             # 开始循环刷编辑次数
-            for i in range(config['docEdit']['iterations']):
+            for i in range(config['iterations']):
                 print(f"第 {i+1} 次编辑")
-                page.goto(config['docEdit']['doc_url'])
+                page.goto(config['doc_url'])
 
-                editor = page.locator(config['docEdit']['location_item'])
+                editor = page.locator(config['location_item'])
                 
                 editor.click()
                 editor.press("Control+End")   # 移动到文末
-                editor.type(config['docEdit']['contents'][i] if len(config['docEdit']['contents'])>1 and config['docEdit']['iterations']==len(config['docEdit']['contents']) else config['docEdit']['contents'][0])     # 输入一个空格
-                page.wait_for_timeout(config['docEdit']['save_time'])  # 等待自动保存
+                editor.type(config['contents'][i] if len(config['contents'])>1 and config['iterations']==len(config['contents']) else config['contents'][0])     # 输入一个空格
+                page.wait_for_timeout(config['save_time'])  # 等待自动保存
                 page.go_back()       # 返回上一页（或关闭标签页）
-                time.sleep(config['docEdit']['sleep_time'])        # 避免被检测为机器人
+                time.sleep(config['sleep_time'])        # 避免被检测为机器人
 
             context.close()
     except Exception:
@@ -178,3 +178,19 @@ def get_post(config):
         context.close()
 
         return requests_list
+    
+def pipe_wrap(config):
+    pipe_name = f'job{int(time.time())}'
+    config['newPipe']['data']['jobName'] = pipe_name
+    res = postData(config['newPipe'])
+
+    if checkStatus(res):
+        pipe_id = res.json()['data']['jobId']
+        config['runPipe']['url'] += str(pipe_id)
+        res = postData(config['runPipe'])
+        checkStatus(res)
+    return res
+
+def get_info(url,headers):
+    response = requests.request("GET", url, headers=headers, data=None)
+    return response

@@ -50,12 +50,13 @@ import argparse
 captured_request = None
 
 def main():
-    from util import gitCommit,doc_edit,writeFile,postData,checkStatus,get_post
+    from util import gitCommit,doc_edit,writeFile,postData,checkStatus,get_post,pipe_wrap,get_info
 
     parser = argparse.ArgumentParser(description="一个示例程序")
     parser.add_argument('--config',default='data/config.yaml', help='config file path')
     parser.add_argument('--mode',default='work', help='auto mode from [git, doc, pipe, sample, work, all]')
     parser.add_argument('--browser',default='edge',help='edge,chrome,firefox')
+    parser.add_argument('--projId',type=int)
     args = parser.parse_args()
 
     # 读取 YAML 配置文件
@@ -64,37 +65,64 @@ def main():
 
     requests_list = get_post(config)
     
-    if not requests_list:
-        print(f"\n❌ 未捕获到 POST 请求: {config['web_page']}")
-        print("可能原因：URL 不匹配、未触发请求、网络问题")
-
+    assert requests_list, f"\n❌ 未捕获到 POST 请求: {config['web_page']}"
     for request in requests_list:
         sessionid = request['headers']['sessionid']
         x_dup_id = request['headers']['x-dup-id']
         user_id = request['headers']['userid']
         if sessionid != 'undefined' and user_id != 'undefined' and x_dup_id != 'undefined':
             break
-    post_conf = {'sessionid':sessionid,'x-dup-id':x_dup_id, 'userId':user_id}
+    assert sessionid != 'undefined' and user_id != 'undefined' and x_dup_id != 'undefined', "未检测到登录用户信息"
+
+    config['headers']['sessionid'] = sessionid
+    config['headers']['x-dup-id'] = x_dup_id 
+    config['headers']['userId'] = user_id
+    config['headers']['projectid'] = str(args.projId)
     
+
+    proj_info = get_info(config['projectInfo']['url']+str(args.projId),config['headers'])
+    assert checkStatus(proj_info), "project id 错误！"
+    config['pipeline']['newPipe']['data']['projName'] = proj_info.json()['baseInfo']['name']
+    config['pipeline']['newPipe']['data']['projId'] = proj_info.json()['baseInfo']['projectId']
+    config['pipeline']['newPipe']['data']['projDisplayName'] = proj_info.json()['baseInfo']['displayName']
+    config['pipeline']['newPipe']['data']['parentProjId'] = proj_info.json()['baseInfo']['parentProjectId']
+    
+    # config['pipeline']['newPipe']['data']['steps']['parentProjId']
+    
+    # modify all the variable attributes in the config file
+    
+    
+    # get the git repo info
+    # repo_info = get_info(config['projectInfo']['url']+str(args.projId),config['headers'])
+    # assert checkStatus(repo_info) and len(repo_info.json()['data']['dataList']), "无法获取repo信息或项目代码仓库为空！"
+    # for repo in repo_info.json()['data']['dataList']:
+        # repoId = repo['id']
+        # url = config[]
+    # config['pipeline']['newPipe']['data']['gitType'] = repo_info.json()['data']['dataList']['gitType']
+    # config['pipeline']['newPipe']['data']['repoName'] = repo_info.json()['data']['dataList']['repositoryName']
+    # config['pipeline']['newPipe']['data']['repoFullName'] = repo_info.json()['data']['dataList']['repoFullName']
+
+
     if args.mode == 'git':
         gitCommit(config['gitCommit'])
     elif args.mode == 'doc':
-        doc_edit(config)
+        doc_edit(config['user_dir'],config['browser_path'],config['web_page'],config['docEdit'])
     elif args.mode == 'pipe':
-        pass
+        pipe_wrap(config['pipeline'])
     elif args.mode == 'sample':
-        checkStatus(postData({**config['testSample'],**{'headers':{**config['testSample']['headers'],**post_conf}}}))
+        checkStatus(postData(config['testSample']['url'],config['testSample']['data'],config['headers']))
     elif args.mode == 'work':
-        checkStatus(postData({**config['workItem'],**{'headers':{**config['workItem']['headers'],**post_conf}}}))
+        checkStatus(postData(config['workItem']['url'],config['workItem']['data'],config['headers']))    
     elif args.mode == 'all':
         print('---文档编辑---')
-        doc_edit(config)
+        doc_edit(config['user_dir'],config['browser_path'],config['web_page'],config['docEdit'])
         print('---Git提交---')
-        gitCommit({**config['gitCommit'],**post_conf})
+        gitCommit(config['gitCommit'])
+        
         print('---测试样例---')
-        checkStatus(postData({**config['testSample'],**post_conf}))
+        assert checkStatus(postData(config['testSample']['url'],config['testSample']['data'],config['headers']))
         print('---工作项---')
-        checkStatus(postData({**config['workItem'],**post_conf}))
+        assert checkStatus(postData(config['workItem']['url'],config['workItem']['data'],config['headers']))    
     else:
         print('指定模式无法识别')
 

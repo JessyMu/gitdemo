@@ -42,15 +42,15 @@ testSample:
     testPhase: []
     externalId: ""
     tagIds: []
-  headers: 
-    authority: "www.srdcloud.cn"
-    pragma: "no-cache"
-    projectid: "75945"
-    sessionid: "ff17a06b-b484-496e-aa74-9e8be57f3c08"
-    userid: "428801"
-    x-dup-id: "1755479417-a16zb4if"
-    # Cookie: "_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ses.9.136f=1; prodtoken=73b34a2a-5bc6-4ade-9383-b5dfb1ea5755; produserId=428801; CTWIMAPPDPGSSOCookie=73b34a2a-5bc6-4ade-9383-b5dfb1ea5755; CTWIMAPPDPGSSOUser=srd18964600668; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755249102%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D"
-    content-type: "application/json"
+headers: 
+  authority: "www.srdcloud.cn"
+  pragma: "no-cache"
+  projectid: "75945"
+  sessionid: "ff17a06b-b484-496e-aa74-9e8be57f3c08"
+  userid: "428801"
+  x-dup-id: "1755479417-a16zb4if"
+  # Cookie: "_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ses.9.136f=1; prodtoken=73b34a2a-5bc6-4ade-9383-b5dfb1ea5755; produserId=428801; CTWIMAPPDPGSSOCookie=73b34a2a-5bc6-4ade-9383-b5dfb1ea5755; CTWIMAPPDPGSSOUser=srd18964600668; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755249102%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D"
+  content-type: "application/json"
     
 
 workItem:
@@ -73,18 +73,359 @@ workItem:
       createType: 1
       priority: 2
       customFieldValues: {}
-  headers: 
-    Host: "www.srdcloud.cn"
-    pragma: "no-cache"
-    projectId: "75945"
-    sessionid: "1eb23433-b618-4515-ac07-6c809a4465c9"
-    userId: "428801"
-    x-dup-id: "1755162319-llvop94h"
-    # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
-    content-type: "application/json"
+  # headers: 
+  #   Host: "www.srdcloud.cn"
+  #   pragma: "no-cache"
+  #   projectId: "75945"
+  #   sessionid: "1eb23433-b618-4515-ac07-6c809a4465c9"
+  #   userId: "428801"
+  #   x-dup-id: "1755162319-llvop94h"
+  #   # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
+  #   content-type: "application/json"
 
 user_dir: "./edge_user_data"
 browser_path: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
 web_page: "https://www.srdcloud.cn/"
 
 pipeline:
+  copyPipe:
+    url: "https://www.srdcloud.cn/api/cibackend/cicenter/pipeline/v2/job"
+    data:
+      syncModifyFlag: 1
+      cloneDepth: 1
+      configDeploy: 0
+      artifactModels: []
+      artifactConfigModels: []
+      branchName: "master"
+      branchPattern: -1
+      buildTool: 1
+      buildType: 0
+      codeQualityServiceModels: []
+      codeUpdateTriggerType: 0
+      commitId: ""
+      compileContainer: ""
+      compileServiceModels: []
+      description: ""
+      dockerImageTag: 
+        enableCommitId: 1
+        enableLatest: 0
+        enableCodeTag: 0
+        enableCustom: 0
+        customPattern: ""
+      dynamicBranchConfig: 0
+      downloadFiles: []
+      eventTriggerModules: []
+      fortifyScanConfig:
+        srcPath: ""
+        scanType: 0
+        fortifyParam: ""
+        pythonInstallPath: ""
+        scalaVersion: ""
+        gccVersion: ""
+        cBuildTool: 0
+        usePrivateImage: 0
+        rubyPath: ""
+        rubyGemPath: ""
+        useQualityGate: False
+        pythonVersion: ""
+      fortifyScanModules: []
+      gradleVersion: ""
+      initShell: ""
+      isSampleProject: 0
+      jobAddressRelation: 
+        codeClusterId: 5
+        codeClusterUrl: "https://code.srdcloud.cn/"
+        artifactClusterId: ""
+        artifactClusterUrl: "https://gz01-srdart.srdcloud.cn"
+        artifactClusterType: "sr"
+        artifactProjectIdentifier: "codefree2025"
+        appRootUrl: ""
+        appRootInnerUrl: ""
+        gitType: 2
+      jobEnvGroups: []
+      jobName: "{dd}"
+      jobTags: []
+      jobType: 1
+      langVersion: ""
+      libCache: 0
+      dockerSave: 0
+      language: 1
+      merge: -1
+      manualModuleTrigger: 0
+      node: 
+        id: "626218377f2e874b78517cb9"
+        nodeDisplayName: "非信创X86节点"
+        nodeName: "非信创X86节点"
+        type: "cloud"
+        createTime: "2022-04-22 10:51:35"
+        creator: "devmonlogqg"
+        updateTime: "2025-08-18 11:52:28"
+        updator: "opsadminmohs"
+        status: 1
+        operationSystem: 0
+        operationSystemName: "Linux"
+        architecture: "x86"
+      npmOrYarn: 1
+      notification: 
+        enableNotification: 1
+        notifyFailed: 1
+        notifyTimeout: 1
+        notifyAbort: 0
+        notifySuccess: 0
+        notifyExecutor: 1
+        notifyManager: 0
+        notifyMember: 0
+        notifyDingdingRobot: 0
+        notifyWechatRobot: 0
+        dingdingRobotAccounts: []
+        wechatRobotAccounts: []
+      nodeType: "cloud"
+      operationSystem: 0
+      pipelineTemplateId: 547074
+      projName: "codefree2025/firstgroup"
+      projId: "75945"
+      projDisplayName: "第一组"
+      parentProjId: 75944
+      registryModels: []
+      repoName: "kk"
+      repoFullName: "codefree2025/firstgroup/kk"
+      requirementsPath: ""
+      scanTool: 1
+      srcPath: ""
+      steps: 
+        - stepIndex: 0
+          stageGroups: 
+            - stageGroupId: 200
+              stageGroupType: 15
+              stageGroupParallelIndex: 0
+              stageGroupName: "代码下载"
+              stageGroupDisplayName: "代码下载"
+              langClass: 1
+              requiredShow: 0
+              requiredChoice: 0
+              artifactType: 0
+              buildTool: 0
+              guideUrl: "https://www.srdcloud.cn/helpcenter/content?id=1222550295844679680"
+              stageGroupConfig:
+                codeCheckout:
+                  id: 44495
+                  jobId: 547074
+                  repoType: 1
+                  clusterUrl: "https://code.srdcloud.cn/"
+                  repoFullName: "codefree2025/firstgroup/kk"
+                  checkoutType: 1
+                  checkoutParam: "master"
+                  checkoutPath: "/kk"
+                  projId: 75945
+              artifactRelatedConfig: 0
+              subJobIndex: 0
+              allowDelSteps: 1
+              async: False
+      scanPath: ""
+      sonarExclusions: ""
+      sonarScanConfig: 
+        gccVersion: ""
+        cBuildTool: 0
+        useQualityGate: False
+        usePrivateImage: 0
+        scanPrivateImage: 0
+      taasTestModels: []
+      tag: ""
+      triggerType: 1
+      triggerDate: ""
+      triggerMode: 1
+      triggerTime: ""
+      triggerTimeFrame: ""
+      triggerInterval: 60
+      timeoutMinute: 1440
+      unitTestServiceModels: []
+      usePrivateImage: 0
+      verify: 1
+    # headers:
+    #   Host: "www.srdcloud.cn"
+    #   pragma: "no-cache"
+    #   projectId: "75945"
+    #   sessionid: "1083acfb-b22f-4e6e-8b9b-8aae08af81a1"
+    #   userId: "428801"
+    #   x-dup-id: "1755499396-dvmus6fs"
+    #   # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
+    #   content-type: "application/json"
+  newPipe:
+    url: "https://www.srdcloud.cn/api/cibackend/cicenter/pipeline/v2/job"
+    data:
+      syncModifyFlag: 1
+      cloneDepth: 1
+      configDeploy: 0
+      artifactModels: []
+      artifactConfigModels: []
+      branchName: "master"
+      branchPattern: -1
+      buildTool: 1
+      buildType: 0
+      codeQualityServiceModels: []
+      codeUpdateTriggerType: 0
+      commitId: ""
+      compileContainer: ""
+      compileServiceModels: []
+      description: ""
+      dockerImageTag: 
+        enableCommitId: 1
+        enableLatest: 0
+        enableCodeTag: 0
+        enableCustom: 0
+        customPattern: ""
+      dynamicBranchConfig: 0
+      downloadFiles: []
+      eventTriggerModules: []
+      fortifyScanConfig:
+        srcPath: ""
+        scanType: 0
+        fortifyParam: ""
+        pythonInstallPath: ""
+        scalaVersion: ""
+        gccVersion: ""
+        cBuildTool: 0
+        usePrivateImage: 0
+        rubyPath: ""
+        rubyGemPath: ""
+        useQualityGate: False
+        pythonVersion: ""
+      fortifyScanModules: []
+      gradleVersion: ""
+      initShell: ""
+      isSampleProject: 0
+      jobAddressRelation: 
+        codeClusterId: 5
+        codeClusterUrl: "https://code.srdcloud.cn/"
+        artifactClusterId: ""
+        artifactClusterUrl: ""
+        artifactClusterType: ""
+        artifactProjectIdentifier: ""
+        appRootUrl: ""
+        appRootInnerUrl: ""
+        gitType: 2 ##
+      jobEnvGroups: []
+      jobName: "ds" ##
+      jobTags: []
+      jobType: 1
+      langVersion: ""
+      libCache: 0
+      dockerSave: 0
+      language: 1
+      merge: -1
+      manualModuleTrigger: 0
+      node: 
+        id: "626218377f2e874b78517cb9"
+        type: "cloud"
+        architecture: "x86"
+      npmOrYarn: 1
+      notification: 
+        enableNotification: 1
+        notifyFailed: 1
+        notifyTimeout: 1
+        notifyAbort: 0
+        notifySuccess: 0
+        notifyExecutor: 1
+        notifyManager: 0
+        notifyMember: 0
+        notifyDingdingRobot: 0
+        notifyWechatRobot: 0
+        dingdingRobotAccounts: []
+        wechatRobotAccounts: []
+      nodeType: "cloud"
+      operationSystem: 0
+      pipelineTemplateId: -1
+      projName: "codefree2025/firstgroup" ##
+      projId: "75945" ##
+      projDisplayName: "第一组" ##
+      parentProjId: 75944 ##
+      registryModels: []
+      repoName: "kk" ##
+      repoFullName: "codefree2025/firstgroup/kk" ##
+      requirementsPath: ""
+      scanTool: 1
+      srcPath: ""
+      steps: 
+        - stepIndex: 0
+          stageGroups: 
+            - stageGroupParallelIndex: 0
+              allowDelSteps: 1
+              artifactType: 0
+              buildTool: 0
+              requiredShow: 0
+              stageGroupId: 200
+              stageGroupType: 15
+              async: False
+              stageGroupName: "代码下载"
+              stageGroupConfig:
+                executeCommandConfig: {}
+                codeCheckout:
+                  repoFullName: "codefree2025/firstgroup/kk" ##
+                  checkoutPath: "/kk" ##
+                  checkoutType: 1
+                  clusterUrl: ""
+                  checkoutParam: "master"
+                  projId: 75945 ##
+                  repoType: 1
+              guideUrl: "https://www.srdcloud.cn/helpcenter/content?id=1222550295844679680"
+              stageGroupDisplayName: "代码下载"
+      scanPath: ""
+      sonarExclusions: ""
+      sonarScanConfig: 
+        gccVersion: ""
+        cBuildTool: 0
+        useQualityGate: False
+        usePrivateImage: 0
+        scanPrivateImage: 0
+      taasTestModels: []
+      tag: ""
+      triggerType: 1
+      triggerDate: ""
+      triggerMode: 1
+      triggerTime: ""
+      triggerTimeFrame: ""
+      triggerInterval: 60
+      timeoutMinute: 1440
+      unitTestServiceModels: []
+      usePrivateImage: 0
+      verify: 1
+    # headers:
+    #   Host: "www.srdcloud.cn"
+    #   pragma: "no-cache"
+    #   projectId: "75945"
+    #   sessionid: "1083acfb-b22f-4e6e-8b9b-8aae08af81a1"
+    #   userId: "428801"
+    #   x-dup-id: "1755499396-dvmus6fs"
+    #   # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
+    #   content-type: "application/json"
+  runPipe:
+    url: "https://www.srdcloud.cn/api/cibackend/cicenter/pipeline/v2/job/build?jobId="
+    data:
+      branch: ""
+      envGroupName: ""
+      envVariables: []
+    # headers:
+    #   Host: "www.srdcloud.cn"
+    #   pragma: "no-cache"
+    #   projectId: "75945"
+    #   sessionid: "1083acfb-b22f-4e6e-8b9b-8aae08af81a1"
+    #   userId: "428801"
+    #   x-dup-id: "1755499396-dvmus6fs"
+    #   # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
+    #   content-type: "application/json"
+
+
+projectInfo:
+  url: "https://www.srdcloud.cn/api/usercenterbackend/projectadmin/v1/get-project?projectId="
+  # headers: 
+  #   Host: "www.srdcloud.cn"
+  #   pragma: "no-cache"
+  #   projectId: "75945"
+  #   sessionid: "1083acfb-b22f-4e6e-8b9b-8aae08af81a1"
+  #   userId: "428801"
+  #   x-dup-id: "1755499396-dvmus6fs"
+  #   # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
+  #   content-type: "application/json"
+  repo:
+    repolist_url: "https://www.srdcloud.cn/api/codebackend/codecenter/repository/v1/repositoryList?getLatestCommitBranchName=1&isParentProj=0&labelNameList=&order=1&pageNum=1&pageSize=10&repositoryName=&shouldCache=1&sort=0&type=0"
+    branchlist_url: "https://www.srdcloud.cn/api/codebackend/codecenter/branch/v1/getAllBranchPageListByRepoId?repoId={0}&branchName=&order=0&pageNum=1&pageSize=10&sort=0&type=0"
