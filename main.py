@@ -1,87 +1,51 @@
-# # url = 'https://www.srdcloud.cn/api/agilebackend/workitem/batchWorkitems'
-# # data = {"workitems":[{"title":"集成i-Park智联应用场景仓库能力","description":"背景：<br/>- IDC机房用户需要自服务监控大屏平台<br/>- 需要集成现有i-Park智联应用的场景仓库能力<br/><br/>目标：<br/>- 提供机房监控常见场景参考模板<br/>- 实现场景组件的复用功能<br/><br/>功能描述：<br/>1. 对接i-Park智联应用API获取场景数据<br/>2. 建立机房监控场景分类体系<br/>3. 实现场景模板的预览功能<br/>4. 开发场景组件复用机制","project":75945,"workItemType":2,"status":1,"createType":1,"priority":2,"customFieldValues":{}},{"title":"构建监控大屏基础框架","description":"背景：<br/>- 需要为IDC机房用户提供自服务监控大屏平台<br/><br/>目标：<br/>- 搭建可扩展的监控大屏基础框架<br/><br/>功能描述：<br/>1. 设计并实现大屏布局系统<br/>2. 开发基础组件库（图表、表格等）<br/>3. 实现响应式布局适配不同屏幕尺寸","project":75945,"workItemType":2,"status":1,"createType":1,"priority":2,"customFieldValues":{}}]}
-# headers = {
-#         'Host': 'www.srdcloud.cn',
-#         'pragma': 'no-cache',
-#         'projectId': '75945',##
-#         'sessionid': '1eb23433-b618-4515-ac07-6c809a4465c9',
-#         'userId': '428801',##
-#         'x-dup-id': '1755162319-llvop94h',
-#         # 'Cookie': '_pk_id.5.136f=389e611a3363ca0d.1754545408.; _pk_id.8.136f=5b71364bf6f7490d.1754547001.; _pk_id.9.136f=71d62570514ea50f.1754553005.; fp=84b4a8b0b8038ed001d1a0154a318f93; _pk_id.3.136f=ab31da71dbd49a90.1755140267.; _pk_id.6.136f=686a64ee4f53aa95.1755150471.; uvId=4b001f62-4530-4338-9c7d-a6be338ed83f; sidebar_status=closed; srdcloud.cn=HttpOnly; _pk_ref..136f=%5B%22%22%2C%22%22%2C1755161584%2C%22https%3A%2F%2Fopen.e.189.cn%2F%22%5D; _pk_ses.9.136f=1; prodtoken=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; produserId=428801; CTWIMAPPDPGSSOCookie=b12ecfb2-643e-45e4-a891-b7f71fd9a8fc; CTWIMAPPDPGSSOUser=srd18964600668',
-#         'content-type': 'application/json'
-#     }
-
-# # check(postData(url,data,headers))
-
-
-
-
-# # git提交记录
-# # 定义提交前缀和对应的功能内容
-# commit_data = [
-#     ("feat", "新增部分车辆数据获取"),
-#     ("feat", "新增部分告警数据获取"),
-#     ("fix", "修改部分车辆数据获取"),
-#     ("fix", "修改部分告警数据获取"),
-#     ("fix", "完善部分车辆数据获取"),
-#     ("fix", "完善部分告警数据获取"),
-#     ("feat", "新增告警数据接口"),
-#     ("feat", "新增车辆道闸数据接口")
-# ]
-
-# # 进入你的Git仓库目录
-# # repo_path = "E:/whr/2022.7.5电话亭/代码版本/管理平台/ght-15min-management-backend"
-# repo_path = "/Users/jesse/Project/srdcloud"
-
-
-# # 文档链接
-# DOC_URL = "https://docs.srdcloud.cn/docs/NJkbEl9MyKh0OoqR"
-
-# # 指定 Microsoft Edge 的可执行文件路径
-#         # edge_path = "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
-
-
-
-
 import yaml
 import json
 import argparse
+import random
+import time
+import asyncio
+import traceback
+from playwright.sync_api import sync_playwright
+
 
 captured_request = None
 
 def main():
-    from util import gitCommit,doc_edit,writeFile,postData,checkStatus,get_post,pipe_wrap,get_info
+    from util import gitCommit,doc_edit,writeFile,postData,checkStatus,get_post,pipe_wrap,get_info,click_submit,remove_item_all,new_gitRepo
 
     parser = argparse.ArgumentParser(description="一个示例程序")
     parser.add_argument('--config',default='data/config.yaml', help='config file path')
-    parser.add_argument('--mode',default='work', help='auto mode from [git, doc, pipe, sample, work, all]')
+    parser.add_argument('--mode',default=['work'],nargs='+', help='auto mode from [git, doc, pipe, sample, work, all]')
     parser.add_argument('--browser',default='edge',help='edge,chrome,firefox')
-    parser.add_argument('--projId',type=int)
+    parser.add_argument('--projId',type=int,default=57670)
+    parser.add_argument('--isRepoCreate', action='store_true', default=False, help='是否创建仓库 (默认: True)')
     args = parser.parse_args()
-
+    
+    assert len(args.mode), 'Error! 必须选择至少一种指标!'
     # 读取 YAML 配置文件
     with open(args.config, 'r', encoding='utf-8') as f:
         config = yaml.safe_load(f)
 
     requests_list = get_post(config)
-    
-    assert requests_list, f"\n❌ 未捕获到 POST 请求: {config['web_page']}"
+        
+    assert requests_list, f"Error! \n❌ 未捕获到 POST 请求: {config['web_page']}!"
     for request in requests_list:
         sessionid = request['headers']['sessionid']
         x_dup_id = request['headers']['x-dup-id']
         user_id = request['headers']['userid']
         if sessionid != 'undefined' and user_id != 'undefined' and x_dup_id != 'undefined':
             break
-    assert sessionid != 'undefined' and user_id != 'undefined' and x_dup_id != 'undefined', "未检测到登录用户信息"
+    assert sessionid != 'undefined' and user_id != 'undefined' and x_dup_id != 'undefined', "Error! 未检测到登录用户信息!"
 
     config['headers']['sessionid'] = sessionid
     config['headers']['x-dup-id'] = x_dup_id 
     config['headers']['userId'] = user_id
     config['headers']['projectid'] = str(args.projId)
     
-
+    
     proj_info = get_info(config['projectInfo']['url']+str(args.projId),config['headers'])
-    assert checkStatus(proj_info), "project id 错误！"
+    assert checkStatus(proj_info), "Error! 项目 Id 错误！"
+    print("✅ 已获取项目概览信息")
     config['pipeline']['newPipe']['data']['projName'] = proj_info.json()['baseInfo']['name']
     config['pipeline']['newPipe']['data']['projId'] = proj_info.json()['baseInfo']['projectId']
     config['pipeline']['newPipe']['data']['projDisplayName'] = proj_info.json()['baseInfo']['displayName']
@@ -91,41 +55,69 @@ def main():
     
     # modify all the variable attributes in the config file
     
-    
+    with sync_playwright() as p:
+
+        context = p.chromium.launch_persistent_context(
+            user_data_dir="./edge_user_data",  # 独立的用户数据目录
+            headless=False,
+            executable_path="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",  # 关键：使用 Edge 浏览器程序
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-infobars",
+                "--disable-extensions",
+                "--disable-web-security",
+                "--allow-running-insecure-content",
+            ],
+        )
+        if args.isRepoCreate:
+            config['pipeline']['repoName'] = new_gitRepo(config['user_dir'],config['browser_path'],config['addRepo']['web_url'].format(config['headers']['projectid']),config['addRepo'],context)
+            print("✅ 新建代码仓库成功！")
+        context.close()
+
     # get the git repo info
-    # repo_info = get_info(config['projectInfo']['url']+str(args.projId),config['headers'])
-    # assert checkStatus(repo_info) and len(repo_info.json()['data']['dataList']), "无法获取repo信息或项目代码仓库为空！"
-    # for repo in repo_info.json()['data']['dataList']:
-        # repoId = repo['id']
-        # url = config[]
-    # config['pipeline']['newPipe']['data']['gitType'] = repo_info.json()['data']['dataList']['gitType']
-    # config['pipeline']['newPipe']['data']['repoName'] = repo_info.json()['data']['dataList']['repositoryName']
-    # config['pipeline']['newPipe']['data']['repoFullName'] = repo_info.json()['data']['dataList']['repoFullName']
+    time.sleep(config['addRepo']['wait_time'])
+    repo_info = get_info(config['projectInfo']['repo']['repolist_url']+str(args.projId),config['headers'])
+    assert checkStatus(repo_info) and len(repo_info.json()['data']['dataList']), "Error! 无法获取repo信息或项目代码仓库为空！"
+    repo_flag = False
+    for repo in repo_info.json()['data']['dataList']:
+        if repo['repositoryName'] == config['pipeline']['repoName']:
+            repo_flag = True
+            # config['pipeline']['newPipe']['data']['gitType'] = repo['gitType']
+            config['pipeline']['newPipe']['data']['repoName'] = repo['repositoryName']
+            config['pipeline']['newPipe']['data']['repoFullName'] = repo['repoFullName']
+            # config['pipeline']['newPipe']['data']['jobName'] += str(int(time.time()))
 
-
-    if args.mode == 'git':
-        gitCommit(config['gitCommit'])
-    elif args.mode == 'doc':
-        doc_edit(config['user_dir'],config['browser_path'],config['web_page'],config['docEdit'])
-    elif args.mode == 'pipe':
-        pipe_wrap(config['pipeline'])
-    elif args.mode == 'sample':
-        checkStatus(postData(config['testSample']['url'],config['testSample']['data'],config['headers']))
-    elif args.mode == 'work':
-        checkStatus(postData(config['workItem']['url'],config['workItem']['data'],config['headers']))    
-    elif args.mode == 'all':
-        print('---文档编辑---')
-        doc_edit(config['user_dir'],config['browser_path'],config['web_page'],config['docEdit'])
-        print('---Git提交---')
-        gitCommit(config['gitCommit'])
-        
-        print('---测试样例---')
-        assert checkStatus(postData(config['testSample']['url'],config['testSample']['data'],config['headers']))
-        print('---工作项---')
-        assert checkStatus(postData(config['workItem']['url'],config['workItem']['data'],config['headers']))    
-    else:
-        print('指定模式无法识别')
-
+            config['pipeline']['newPipe']['data']['steps'][0]['stageGroups'][0]['stageGroupConfig']['codeCheckout']['repoFullName'] = repo['repoFullName']
+            config['pipeline']['newPipe']['data']['steps'][0]['stageGroups'][0]['stageGroupConfig']['codeCheckout']['checkoutPath'] = f"/{repo['repositoryName']}"
+            config['pipeline']['newPipe']['data']['steps'][0]['stageGroups'][0]['stageGroupConfig']['codeCheckout']['projId'] = proj_info.json()['baseInfo']['projectId']
+            break
+    assert repo_flag, f"不存在名为{config['pipeline']['repoName']}的代码仓库"
+    print(f"✅ Load Git Repo: {config['pipeline']['repoName']}")
+    flag = True
+    while flag:
+        flag = False
+        assert len(args.mode), 'Error! 当前没有可以提升使用率的指标!'
+        current_mode = random.choice(args.mode)
+        try:
+            if current_mode == 'git':
+                gitCommit(config['gitCommit'])
+            elif current_mode == 'doc':
+                doc_edit(config['user_dir'],config['browser_path'],config['docEdit'])
+            elif current_mode == 'pipe':
+                pipe_wrap(config['pipeline'])
+            elif current_mode == 'sample':
+                click_submit(config['user_dir'],config['browser_path'],config['testSample']['web_url'].format(config['headers']['projectid']),config['testSample'],'sample')
+            elif current_mode == 'work':
+                click_submit(config['user_dir'],config['browser_path'],config['workItem']['web_url'].format(config['headers']['projectid']),config['workItem'],'work')
+            else:
+                print(f'Warning! {current_mode}指标不存在!')
+                raise(Exception('指标不存在'))
+        except Exception as e:
+            args.mode = remove_item_all(args.mode,current_mode)
+            print(f'Error! {traceback.print_exc()}')
+            print(f'删除{current_mode}，继续执行')
 
 if __name__ == "__main__":
+    # asyncio.run(main())
     main()

@@ -1,0 +1,5 @@
+"steps":[{"stepIndex":0,
+        "stageGroups":[{"stageGroupConfig":{"executeCommandConfig":{},"codeCheckout":{"repoFullName":"P24SHHLYF0019/test","checkoutPath":"/test","checkoutType":1,"clusterUrl":"","checkoutParam":"master","projId":57670,"repoType":1}},"guideUrl":"https://www.srdcloud.cn/helpcenter/content?id=1222550295844679680","stageGroupDisplayName":"代码下载"}]
+        }]
+
+        data['steps'][0]['stageGroups'][0]['stageGroupConfig]['codeCheckout']['repoFullName] = 

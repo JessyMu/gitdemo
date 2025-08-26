@@ -53,3 +53,16 @@ def run_job(jobid):
 
 
 b = run_job(a.json()['data']['jobId'])
+
+
+
+# "codeClusterId":8 --
+# "jobName":"test" --手动指定
+# "projName":"P24SHHLYF0019"
+# "projId":"57670"
+# "projDisplayName":"2024年中国电信上海分公司互联网部物管平台小卡片功能软件研发项目"
+# "parentProjId":-1
+# "repoName":"test" --
+# "repoFullName":"P24SHHLYF0019/test" --
+# "checkoutPath":"/test" --
+# "projId":57670

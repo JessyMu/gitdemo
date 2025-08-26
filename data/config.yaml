@@ -6,6 +6,35 @@ docEdit:
   save_time: 3000
   sleep_time: 2
 
+workItem:
+  web_url: "https://www.srdcloud.cn/zxwim/{}/allWorkItems/new/Task"
+  iterations: 2
+  location_input: "input#input-title"
+  location_button: "button.save-btn.el-button--primary"
+  title: ["c1", "c2"]
+  save_time: 8000
+  sleep_time: 5
+  wait_time: 30
+
+testSample:
+  web_url: "https://www.srdcloud.cn/taas/{}/add-case"
+  iterations: 2
+  location_input: "input[data-test='case-name'].t-el-input__inner"
+  location_button: "[data-test='save-and-create']"
+  title: ["c1", "c2"]
+  save_time: 3000
+  sleep_time: 10
+  wait_time: 10
+
+gitRepo:
+  work_url: "https://www.srdcloud.cn/code/32310/repo"
+  iterations: 2
+  location_input: "input[data-test='case-name'].t-el-input__inner"
+  location_button: "[data-test='save-and-create']"
+  title: ["c1", "c2"]
+  save_time: 3000
+  sleep_time: 2
+
 gitCommit:
   repo_path: "/Users/jesse/Project/srdcloud"
   iterations: 2
@@ -21,27 +50,27 @@ gitCommit:
     - ["feat", "新增车辆道闸数据接口"]
   sleep_time: 10
 
-testSample:
-  url: "https://www.srdcloud.cn/api/tsback/casemanager/v1/add-case"
-  data: 
-    productId: "32687"
-    name: "123"
-    category: "function"
-    level: "P1"
-    demandId: "-1"
-    descType: "step"
-    demandName: ""
-    groupId: "127935"
-    status: "draft"
-    description: 
-      preCond: ""
-      steps: ""
-      expects: ""
-      steplist: []
-    annexIds: []
-    testPhase: []
-    externalId: ""
-    tagIds: []
+# testSample:
+#   url: "https://www.srdcloud.cn/api/tsback/casemanager/v1/add-case"
+#   data: 
+#     productId: "32687" ##!
+#     name: "123"
+#     category: "function"
+#     level: "P1"
+#     demandId: "-1"
+#     descType: "step"
+#     demandName: ""
+#     groupId: "127935" ##!
+#     status: "draft"
+#     description: 
+#       preCond: ""
+#       steps: ""
+#       expects: ""
+#       steplist: []
+#     annexIds: []
+#     testPhase: []
+#     externalId: ""
+#     tagIds: []
 headers: 
   authority: "www.srdcloud.cn"
   pragma: "no-cache"
@@ -53,7 +82,7 @@ headers:
   content-type: "application/json"
     
 
-workItem:
+workItem_self:
   url: "https://www.srdcloud.cn/api/agilebackend/workitem/batchWorkitems"
   data: 
     workitems: 
@@ -88,6 +117,7 @@ browser_path: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
 web_page: "https://www.srdcloud.cn/"
 
 pipeline:
+  repoName: "t2"
   copyPipe:
     url: "https://www.srdcloud.cn/api/cibackend/cicenter/pipeline/v2/job"
     data:
@@ -429,3 +459,17 @@ projectInfo:
   repo:
     repolist_url: "https://www.srdcloud.cn/api/codebackend/codecenter/repository/v1/repositoryList?getLatestCommitBranchName=1&isParentProj=0&labelNameList=&order=1&pageNum=1&pageSize=10&repositoryName=&shouldCache=1&sort=0&type=0"
     branchlist_url: "https://www.srdcloud.cn/api/codebackend/codecenter/branch/v1/getAllBranchPageListByRepoId?repoId={0}&branchName=&order=0&pageNum=1&pageSize=10&sort=0&type=0"
+
+
+
+addRepo:
+  repo_name: "test"
+  web_url: "https://www.srdcloud.cn/code/{}/repo"
+  location_new: ".code-srd-button.code-srd-button_primary:has-text('新建代码仓库')"
+  location_empty: "div.select-card-main:has-text('创建空白仓库')"
+  location_next: '[data-test="editBranch"]:has-text("下一步")'
+  location_name: 'input[data-test="create-repository"].code-el-input__inner'
+  location_submit: '[data-test="editBranch"]:has-text("确定")'
+  save_time: 3000
+  sleep_time: 3
+  wait_time: 5
